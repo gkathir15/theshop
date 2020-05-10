@@ -10,7 +10,7 @@ class ProdBloc {
 
   Observable<Prods> get prod => _sheetFetcher.stream;
 
-  fetchLondonWeather() async {
+  fetchnetworkData() async {
     Prods weatherResponse = await _repository.fetchSheetData();
     _sheetFetcher.sink.add(weatherResponse);
   }

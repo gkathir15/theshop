@@ -1,6 +1,4 @@
-import 'package:equatable/equatable.dart';
-
-class Prods extends Equatable  {
+class Prods {
   Columns columns;
   List<Rows> rows;
 
@@ -29,13 +27,14 @@ class Prods extends Equatable  {
   }
 }
 
-class Columns extends Equatable {
+class Columns {
   List<String> product;
   List<int> price;
   List<String> imgurl;
   List<String> size;
   List<int> maxqty;
   List<int> qty;
+  List<int> amt;
 
   Columns(
       {this.product,
@@ -43,7 +42,8 @@ class Columns extends Equatable {
         this.imgurl,
         this.size,
         this.maxqty,
-        this.qty});
+        this.qty,
+        this.amt});
 
   Columns.fromJson(Map<String, dynamic> json) {
     product = json['product'].cast<String>();
@@ -52,6 +52,7 @@ class Columns extends Equatable {
     size = json['size'].cast<String>();
     maxqty = json['maxqty'].cast<int>();
     qty = json['qty'].cast<int>();
+    amt = json['amt'].cast<int>();
   }
 
   Map<String, dynamic> toJson() {
@@ -62,17 +63,19 @@ class Columns extends Equatable {
     data['size'] = this.size;
     data['maxqty'] = this.maxqty;
     data['qty'] = this.qty;
+    data['amt'] = this.amt;
     return data;
   }
 }
 
-class Rows extends Equatable {
+class Rows {
   String product;
   int price;
   String imgurl;
   String size;
   int maxqty;
   int qty;
+  int amt;
 
   Rows(
       {this.product,
@@ -80,7 +83,8 @@ class Rows extends Equatable {
         this.imgurl,
         this.size,
         this.maxqty,
-        this.qty});
+        this.qty,
+        this.amt});
 
   Rows.fromJson(Map<String, dynamic> json) {
     product = json['product'];
@@ -89,6 +93,7 @@ class Rows extends Equatable {
     size = json['size'];
     maxqty = json['maxqty'];
     qty = json['qty'];
+    amt = json['amt'];
   }
 
   Map<String, dynamic> toJson() {
@@ -99,6 +104,7 @@ class Rows extends Equatable {
     data['size'] = this.size;
     data['maxqty'] = this.maxqty;
     data['qty'] = this.qty;
+    data['amt'] = this.amt;
     return data;
   }
 }

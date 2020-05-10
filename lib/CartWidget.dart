@@ -2,16 +2,21 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/painting.dart';
 import 'Prods.dart';
+import 'Constants.dart';
 
-class ProdWidget extends StatelessWidget {
+class CartWidget extends StatelessWidget {
   Rows row;
+ final BuildContext context;
+  List<Rows> allRows;
 
-  ProdWidget.forDesignTime();
+  //CartWidget.forDesignTime(this.context);
 
-  ProdWidget({this.row});
+
+  CartWidget(this.row, this.context, this.allRows);
 
   @override
   Widget build(BuildContext context) {
+   // UpdateTotal(allRows,false);
     return new Row(
         mainAxisAlignment: MainAxisAlignment.start,
         mainAxisSize: MainAxisSize.max,
@@ -25,9 +30,9 @@ class ProdWidget extends StatelessWidget {
             height: MediaQuery.of(context).size.height/4.5,
           ),
 
-          SizedBox(
-            width: MediaQuery.of(context).size.width/2,
-            height: MediaQuery.of(context).size.height/5,
+          Expanded(
+//            width: MediaQuery.of(context).size.width/2,
+//            height: MediaQuery.of(context).size.height/5,
             child: Padding(
               padding: EdgeInsets.only(left: 10),
               child: new Column(
@@ -39,7 +44,7 @@ class ProdWidget extends StatelessWidget {
                     textName(row.product,2),
                     textQuantity(row.size),
                     textPrice("₹ ${row.price}",1),
-                    Padding(padding:EdgeInsets.only(left: 15),child: addButton(context, row))
+                    Padding(padding:EdgeInsets.only(left: 15),child: addButton(context, row,allRows))
                   ]
 
               ),
@@ -51,11 +56,31 @@ class ProdWidget extends StatelessWidget {
         ]
 
     );
+
+
+
+  }
+
+  UpdateTotal(List<Rows> rows,bool needRebuild )
+  {
+    int total = 0;
+
+    for(row in rows)
+      {
+        if(row.qty>0)
+        total = total+row.amt;
+      }
+    totalvalue = total;
+    if(needRebuild)
+    (context as Element).markNeedsBuild();
+
+
   }
   
   
-  Widget addButton(BuildContext context,Rows row)
+  Widget addButton(BuildContext context,Rows row, List<Rows> allRows)
   {
+
     if(row.qty>0){
     return Row(
         mainAxisAlignment: MainAxisAlignment.start,
@@ -70,6 +95,7 @@ class ProdWidget extends StatelessWidget {
               if(row.qty!=0)
                 --row.qty;
               row.amt = (row.price*row.qty);
+              UpdateTotal(allRows,true)
               (context as Element).markNeedsBuild();
             },
                 child:
@@ -99,7 +125,9 @@ class ProdWidget extends StatelessWidget {
               borderRadius: BorderRadius.circular(20.0),),key: null, onPressed: () {
               ++row.qty;
               row.amt = (row.price*row.qty);
+              UpdateTotal(allRows,true)
               (context as Element).markNeedsBuild();
+
             },
                 color: Colors.amber,
                 child:
@@ -111,6 +139,9 @@ class ProdWidget extends StatelessWidget {
                       fontFamily: "Roboto"),
                 )
             ),),
+
+
+          Padding(padding:EdgeInsets.only(left: 5),child: Text("Amount ₹${row.amt}"))
         ]
 
     );}
@@ -122,6 +153,7 @@ class ProdWidget extends StatelessWidget {
           borderRadius: BorderRadius.circular(20.0),),key: null, onPressed: () {
           ++row.qty;
           row.amt = (row.price*row.qty);
+          UpdateTotal(allRows,true)
           (context as Element).markNeedsBuild();
         },
             color: Colors.lightGreenAccent.shade200,
