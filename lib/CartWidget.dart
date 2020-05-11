@@ -4,6 +4,7 @@ import 'package:flutter/painting.dart';
 import 'Prods.dart';
 import 'Constants.dart';
 
+// ignore: must_be_immutable
 class CartWidget extends StatelessWidget {
   Rows row;
  final BuildContext context;

@@ -20,9 +20,14 @@ version: 1.0.0+1
 environment:
   sdk: ">=2.7.0 <3.0.0"
 
+
+
+
 dependencies:
   flutter:
     sdk: flutter
+
+
 
 
   # The following adds the Cupertino Icons font to your application.
@@ -32,6 +37,8 @@ dependencies:
   equatable: ^0.2.0
   rxdart: ^0.22.0
   search_widget: ^1.0.2
+  shared_preferences: ^0.5.7+1
+  url_launcher: ^5.4.5
 
 dev_dependencies:
   flutter_test:
@@ -42,6 +49,9 @@ dev_dependencies:
 
 # The following section is specific to Flutter.
 flutter:
+
+  assets:
+    - assets/
 
   # The following line ensures that the Material Icons font is
   # included with your application, so that you can use the icons in
